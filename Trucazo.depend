@@ -1,14 +1,25 @@
 # depslib dependency file v1.0
-1748294975 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.cpp
+1748405240 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.cpp
 	"Carta.h"
 	<iostream>
 	<vector>
 
-1748294975 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
+1748395557 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
 	<string>
 	<vector>
 
-1748294400 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
+1748405821 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
 	"Carta.h"
 	<iostream>
+	"Mazo.h"
+
+1748405821 c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.h
+	<vector>
+	"Carta.h"
+
+1748406262 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.cpp
+	"Mazo.h"
+	<iostream>
+	<cstdlib>
+	<ctime>
 

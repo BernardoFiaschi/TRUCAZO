@@ -4,20 +4,20 @@
 using namespace std;
 
 Carta::Carta()
-    {
+{
     numero = 0;
     palo = "";
     idCarta = 0;
     valor = 0;
-    }
+}
 
 Carta::Carta(int num, string p, int id, int pts)
-    {
+{
     numero = num;
     palo = p;
     idCarta = id;
     valor = pts;
-    }
+}
 
 int Carta::getNumero() const { return numero; }
 string Carta::getPalo() const { return palo; }
@@ -25,13 +25,13 @@ int Carta::getIdCarta() const { return idCarta; }
 int Carta::getValor() const { return valor; }
 
 void Carta::mostrar() const
-    {
+{
     cout << numero << " de " << palo << " | Puntaje: " << valor << " | ID: " << idCarta << endl;
-    }
+}
 
 
 vector<Carta> listarCartasMazo()
-    {
+{
     vector<Carta> cartas =
     {
         Carta(1, "espada", 1, 50),
@@ -76,4 +76,4 @@ vector<Carta> listarCartasMazo()
         Carta(4, "copa", 40, 4)
     };
     return cartas;
-    }
+}

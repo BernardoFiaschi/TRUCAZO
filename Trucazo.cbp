@@ -15,6 +15,8 @@
 					<Add directory="SFML-2.5.1-windows-gcc-7.3.0-mingw-32-bit/SFML-2.5.1/include" />
 				</Compiler>
 				<Linker>
+					<Add option="-static-libgcc" />
+					<Add option="-static-libstdc++" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
@@ -30,6 +32,8 @@
 		</Linker>
 		<Unit filename="Carta.cpp" />
 		<Unit filename="Carta.h" />
+		<Unit filename="Mazo.cpp" />
+		<Unit filename="Mazo.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
