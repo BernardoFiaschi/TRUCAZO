@@ -26,9 +26,8 @@ int Carta::getValor() const { return valor; }
 
 void Carta::mostrar() const
 {
-    cout << numero << " de " << palo << " | Puntaje: " << valor << " | ID: " << idCarta << endl;
+    cout << numero << " de " << palo << "    | Puntaje: " << valor << "  | ID: " << idCarta << endl;
 }
-
 
 vector<Carta> listarCartasMazo()
 {

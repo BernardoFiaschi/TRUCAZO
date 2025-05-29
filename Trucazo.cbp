@@ -15,8 +15,8 @@
 					<Add directory="SFML-2.5.1-windows-gcc-7.3.0-mingw-32-bit/SFML-2.5.1/include" />
 				</Compiler>
 				<Linker>
-					<Add option="-static-libgcc" />
 					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
