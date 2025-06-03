@@ -34,6 +34,8 @@
 		<Unit filename="Carta.h" />
 		<Unit filename="Mazo.cpp" />
 		<Unit filename="Mazo.h" />
+		<Unit filename="imagenes.cpp" />
+		<Unit filename="imagenes.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

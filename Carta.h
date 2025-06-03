@@ -22,4 +22,4 @@ public:
     void mostrar() const;
 };
 
-vector<Carta> listarCartasMazo();
+vector<Carta> CartasMazo();

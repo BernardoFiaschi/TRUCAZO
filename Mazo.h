@@ -1,20 +1,26 @@
 #pragma once
 #include <vector>
+#include <stack>
 #include "Carta.h"
 using namespace std;
 
 class Mazo {
 private:
-    vector<Carta> cartas;                       // Almacena las 40 cartas del mazo //
-    vector<Carta> cartasJugador;                // Almacena las 5 cartas que se le reparten al jugador //
-    vector<Carta> mazoOriginal;                 // Para mostrar el mazo en orden //
+    stack<Carta> pilaCartas;
+    vector<Carta> cartasJugador;
+    vector<Carta> mazoOriginal;
 
 public:
-    Mazo();                                     // Constructor que carga las 40 cartas y reparte 5 aleatorias //
-    void mostrarCartasJugador() const;          // Muestra las 5 cartas repartidas //
-    bool repartirCartas();                      // Reparte las cartas //
+    Mazo();
+    bool repartirCartas();
+    void mostrarCartasJugador() const;
     void mostrarCartasDisponibles() const;
     void mostrarMazoOriginal() const;
+
+    // para hacer funcionar las funciones de mostrar imagenes //
+
+    const Carta* getCartasJugador() const;
+    int getCantidadCartasJugador() const;
+
+
 };
-
-

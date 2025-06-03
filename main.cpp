@@ -1,6 +1,6 @@
-#include "Carta.h"
 #include <iostream>
 #include "Mazo.h"
+#include "imagenes.h"
 using namespace std;
 
 int main()
@@ -11,38 +11,33 @@ int main()
     do
     {
         cout << endl << "---------------------------------" << endl;
-        cout << "1. Repartir 5 cartas" << endl;
-        cout << "2. Mostrar mazo entero" << endl;
-        cout << "3. Mostrar cartas restantes" << endl;
+        cout << "1. Repartimos 5 cartas, las mostramos graficamente y en consola" << endl;
+        cout << "2. Mostrar mazo original" << endl;
+        cout << "3. Mostrar cartas disponibles" << endl;
         cout << "0. Salir del programa" << endl;
         cout << "---------------------------------" << endl;
-        cout << "Ingrese una opcion: " << endl;
-        cout << "---------------------------------" << endl;
+        cout << "Ingrese una opcion: ";
         cin >> opcion;
 
         switch (opcion)
         {
         case 1:
+            // Reparte y muestra las cartas tanto en texto como gr ficamente //
             if (mazo.repartirCartas())
-            {
                 mazo.mostrarCartasJugador();
-            }
+            mostrarCartasJugadorVisual(mazo.getCartasJugador(), mazo.getCantidadCartasJugador());
             break;
 
         case 2:
-        {
             mazo.mostrarMazoOriginal();
             break;
-        }
 
-         case 3:
-        {
+        case 3:
             mazo.mostrarCartasDisponibles();
             break;
-        }
 
         case 0:
-            cout << "Programa terminado" << endl;
+            cout << "Programa terminado." << endl;
             break;
 
         default:
@@ -51,6 +46,6 @@ int main()
         }
 
     } while (opcion != 0);
-
     return 0;
 }
+
