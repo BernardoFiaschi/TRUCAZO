@@ -5,23 +5,19 @@
 #include <stack>
 using namespace std;
 
+
 Mazo::Mazo()
 {
-                                                                // Obtenemos las 40 cartas del mazo inicial fijo //
     vector<Carta> iniciales = CartasMazo();
-
-                                                                // Guardamos una copia sin mezclar para referencia //
     mazoOriginal = iniciales;
-
-                                                                // Inicializamos la semilla aleatoria para mezclar //
     srand(time(NULL));
+    cantidadCartasDisponibles = 40;
 
-                                                                // Mezclamos las cartas seleccionando aleatoriamente y cargando en la pila //
     while (!iniciales.empty())
     {
-        int indice = rand() % iniciales.size();                 // Selecciona un ¡ndice al azar //
-        pilaCartas.push(iniciales[indice]);                     // Agrega la carta a la pila mezclada //
-        iniciales.erase(iniciales.begin() + indice);            // La elimina del mazo inicial //
+        int indice = rand() % iniciales.size();
+        pilaCartas.push(iniciales[indice]);
+        iniciales.erase(iniciales.begin() + indice);
     }
 }
 
@@ -31,7 +27,7 @@ bool Mazo::repartirCartas()
 {
     if (pilaCartas.size() < 5)
     {
-        cout << "No hay m s cartas suficientes para repartir." << endl;
+        cout << "No hay mas cartas para repartir." << endl;
         return false;
     }
 
@@ -43,6 +39,7 @@ bool Mazo::repartirCartas()
     {
         cartasJugador.push_back(pilaCartas.top());
         pilaCartas.pop();
+        cantidadCartasDisponibles--;
     }
     return true;
 }
@@ -56,16 +53,24 @@ void Mazo::mostrarCartasJugador() const
         c.mostrar();
 }
 
-                                                                // Mostramos cu ntas cartas quedan en la pila mezclada //
+                                                                // Mostramos cuÂ ntas cartas quedan en la pila mezclada //
 void Mazo::mostrarCartasDisponibles() const
 {
-    cout << endl << "Cartas restantes en el mazo: " << pilaCartas.size() << endl;
+    cout << "Cartas restantes en el mazo: " << pilaCartas.size() << "";
+
+    stack<Carta> copia = pilaCartas;
+    while (!copia.empty())
+    {
+        copia.top().mostrar();
+        copia.pop();
+    }
 }
 
-                                                                // Mostramos el mazo original (sin mezclar) //
+
+                                                                // Mostramos el mazo original completo //
 void Mazo::mostrarMazoOriginal() const
 {
-    cout << endl << "Mazo original (ordenado): " << endl;
+    cout << endl << "Mazo original: " << endl;
     for (const Carta& c : mazoOriginal)
         c.mostrar();
 }
@@ -75,8 +80,26 @@ const Carta* Mazo::getCartasJugador() const {
     return cartasJugador.data();
 }
 
-                                                                // Devolvemos cu ntas cartas tiene actualmente el jugador //
+                                                                // Devolvemos cuantas cartas tiene actualmente el jugador //
 int Mazo::getCantidadCartasJugador() const {
     return cartasJugador.size();
 }
 
+int Mazo::getCantidadCartasDisponibles() const {
+    return cantidadCartasDisponibles;
+}
+
+
+
+
+bool Mazo::darCartas(int cantidad, std::vector<Carta>& nuevasCartas) {
+    nuevasCartas.clear();
+    if (pilaCartas.size() < cantidad) return false;
+
+    for (int i = 0; i < cantidad; i++) {
+        nuevasCartas.push_back(pilaCartas.top());
+        pilaCartas.pop();
+        cantidadCartasDisponibles--;
+    }
+    return true;
+}

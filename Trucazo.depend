@@ -1,37 +1,37 @@
 # depslib dependency file v1.0
-1748902260 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.cpp
+1749089068 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.cpp
 	"Carta.h"
 	<iostream>
 	<vector>
 
-1748903370 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
+1749089068 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
 	<string>
 	<vector>
 
-1748984547 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
+1749095642 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
 	<iostream>
 	"Mazo.h"
-	"imagenes.h"
+	"Imagenes.h"
+	"Partida.h"
 
-1748984532 c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.h
+1749157873 c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.h
 	<vector>
 	<stack>
 	"Carta.h"
 
-1748984532 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.cpp
+1749157873 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.cpp
 	"Mazo.h"
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<stack>
 
-1748984057 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.cpp
-	"imagenes.h"
-	<SFML/Graphics.hpp>
+1749157873 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.cpp
+	"Imagenes.h"
 	<iostream>
-	<sstream>
 
-1748984066 c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.h
+1749157873 c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.h
+	<SFML/Graphics.hpp>
 	"Carta.h"
 
 1525812018 c:\users\berna\onedrive\desktop\proyecto final trucazo\sfml-2.5.1-windows-gcc-7.3.0-mingw-32-bit\sfml-2.5.1\include\sfml\graphics.hpp
@@ -442,4 +442,34 @@
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1749108808 c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.h
+	<vector>
+	"Carta.h"
+	"Mazo.h"
+	<SFML/Graphics.hpp>
+
+1749098122 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.cpp
+	"Partida.h"
+	"Imagenes.h"
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1749081670 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\seleccioncartas.cpp
+	"SeleccionCartas.h"
+	<vector>
+
+1749081670 c:\users\berna\onedrive\desktop\proyecto final trucazo\seleccioncartas.h
+	"Carta.h"
+	<SFML/Graphics.hpp>
+
+1749088449 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\juegografico.cpp
+	"JuegoGrafico.h"
+	<SFML/Graphics.hpp>
+	<vector>
+	<string>
+	<iostream>
+
+1749088449 c:\users\berna\onedrive\desktop\proyecto final trucazo\juegografico.h
+	"Carta.h"
 

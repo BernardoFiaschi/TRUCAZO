@@ -32,10 +32,12 @@
 		</Linker>
 		<Unit filename="Carta.cpp" />
 		<Unit filename="Carta.h" />
+		<Unit filename="Imagenes.cpp" />
+		<Unit filename="Imagenes.h" />
 		<Unit filename="Mazo.cpp" />
 		<Unit filename="Mazo.h" />
-		<Unit filename="imagenes.cpp" />
-		<Unit filename="imagenes.h" />
+		<Unit filename="Partida.cpp" />
+		<Unit filename="Partida.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
