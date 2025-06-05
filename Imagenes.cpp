@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+                                                                                                // Renderiza la pantalla de seleccion de cartas usando SFML //
+                                                                                                // Resalta las cartas seleccionadas, muestra informacion de ronda y recibe interaccion del usuario //
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
                                const Carta cartas[], int cantidad,
                                int ronda, int objetivo, int puntajeActual,
@@ -28,7 +30,8 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
     bool seleccionadas[5] = { false, false, false, false, false };
     int seleccion[4] = { -1, -1, -1, -1 };
 
-    for (int i = 0; i < cantidad; i++) {
+    for (int i = 0; i < cantidad; i++)
+    {
         string ruta = "cartas/" + to_string(cartas[i].getIdCarta()) + ".png";
         texturas[i].loadFromFile(ruta);
         sprites[i].setTexture(texturas[i]);
@@ -37,34 +40,44 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
     }
 
     bool terminar = false;
-    while (!terminar && ventana.isOpen()) {
+    while (!terminar && ventana.isOpen())
+    {
         sf::Event event;
-        while (ventana.pollEvent(event)) {
+        while (ventana.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 ventana.close();
 
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num5) {
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num5)
+                {
                     int idx = event.key.code - sf::Keyboard::Num1;
-                    if (seleccionadas[idx]) {
+                    if (seleccionadas[idx])
+                    {
                         seleccionadas[idx] = false;
                         for (int i = 0; i < 4; i++) if (seleccion[i] == idx) seleccion[i] = -1;
-                    } else {
-                        for (int i = 0; i < 4; i++) {
-                            if (seleccion[i] == -1) {
+                    } else
+                        {
+                        for (int i = 0; i < 4; i++)
+                            {
+                                if (seleccion[i] == -1)
+                                {
                                 seleccion[i] = idx;
                                 seleccionadas[idx] = true;
                                 break;
+                                }
                             }
                         }
-                    }
                 }
-                if (event.key.code == sf::Keyboard::Enter) {
+                if (event.key.code == sf::Keyboard::Enter)
+                {
                     accion = 1;
                     tie(c1, c2, c3, c4) = make_tuple(seleccion[0], seleccion[1], seleccion[2], seleccion[3]);
                     terminar = true;
                 }
-                if (event.key.code == sf::Keyboard::BackSpace) {
+                if (event.key.code == sf::Keyboard::BackSpace)
+                {
                     accion = -1;
                     tie(c1, c2, c3, c4) = make_tuple(seleccion[0], seleccion[1], seleccion[2], seleccion[3]);
                     terminar = true;
@@ -81,9 +94,11 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         ventana.draw(texto);
         ventana.draw(info);
 
-        for (int i = 0; i < cantidad; i++) {
+        for (int i = 0; i < cantidad; i++)
+        {
             ventana.draw(sprites[i]);
-            if (seleccionadas[i]) {
+            if (seleccionadas[i])
+            {
                 sf::FloatRect b = sprites[i].getGlobalBounds();
                 sf::RectangleShape marco(sf::Vector2f(b.width, b.height));
                 marco.setPosition(b.left, b.top);

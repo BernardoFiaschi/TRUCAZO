@@ -3,7 +3,8 @@
 #include <vector>
 using namespace std;
 
-class Carta {
+class Carta
+{
 private:
     int numero;
     string palo;

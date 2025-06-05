@@ -3,6 +3,7 @@
 #include "Carta.h"
 using namespace std;
 
+
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
                                const Carta cartas[], int cantidad,
                                int ronda, int objetivo, int puntajeActual,

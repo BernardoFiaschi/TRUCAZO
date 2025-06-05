@@ -5,8 +5,8 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
-
-class Partida {
+class Partida
+{
 private:
     int rondaActual;
     int puntajesObjetivo[15];
@@ -14,17 +14,26 @@ private:
     int puntajeRonda;
     int jugadasRestantes;
     int descartesRestantes;
-    vector<Carta> mano;
+    std::vector<Carta> mano;
     Mazo mazo;
 
 public:
-    Partida();
-    void iniciar();
-    void iniciarRonda(sf::RenderWindow& ventana);
-    void jugarCartas(const vector<int>& seleccion);
-    void descartarCartas(const vector<int>& seleccion);
-    void rellenarMano();
-    bool verificarVictoria();
-    void mostrarMensaje(sf::RenderWindow& ventana, const string& mensaje);
-    void finalizarRonda(sf::RenderWindow& ventana, bool victoria);
+
+Partida();
+
+void iniciar();
+
+void iniciarRonda(sf::RenderWindow& ventana);
+
+void jugarCartas(const std::vector<int>& seleccion);
+
+void descartarCartas(const std::vector<int>& seleccion);
+
+void rellenarMano();
+
+bool verificarVictoria();
+
+void mostrarMensaje(sf::RenderWindow& ventana, const std::string& mensaje);
+
+void finalizarRonda(sf::RenderWindow& ventana, bool victoria);
 };

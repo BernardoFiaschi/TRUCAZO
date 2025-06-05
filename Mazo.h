@@ -4,7 +4,9 @@
 #include "Carta.h"
 using namespace std;
 
-class Mazo {
+
+class Mazo
+{
 private:
     stack<Carta> pilaCartas;
     vector<Carta> cartasJugador;
@@ -14,14 +16,20 @@ private:
 public:
     Mazo();
 
-    bool repartirCartas();
-    bool darCartas(int cantidad, vector<Carta>& nuevasCartas);
 
-    void mostrarCartasJugador() const;
-    void mostrarCartasDisponibles() const;
-    void mostrarMazoOriginal() const;
+bool repartirCartas();
 
-    const Carta* getCartasJugador() const;
-    int getCantidadCartasJugador() const;
-    int getCantidadCartasDisponibles() const;
+bool darCartas(int cantidad, vector<Carta>& nuevasCartas);
+
+void mostrarCartasJugador() const;
+
+void mostrarCartasDisponibles() const;
+
+void mostrarMazoOriginal() const;
+
+const Carta* getCartasJugador() const;
+
+int getCantidadCartasJugador() const;
+
+int getCantidadCartasDisponibles() const;
 };

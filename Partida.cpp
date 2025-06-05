@@ -4,45 +4,64 @@
 #include <iostream>
 using namespace std;
 
-Partida::Partida() {
+                                                                                        // Constructor de la clase Partida //
+                                                                                        // Inicializa el estado de la partida y carga los puntajes objetivo por ronda //
+Partida::Partida()
+{
     rondaActual = 0;
     puntajeTotal = 0;
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 15; i++)
+    {
         puntajesObjetivo[i] = 50 * (i + 1);
     }
 }
 
+                                                                                        // Iniciamos la partida completa //
+                                                                                        // Crea una ventana grafica y ejecuta 15 rondas mientras la ventana esta abierta //
 void Partida::iniciar() {
     sf::RenderWindow ventana(sf::VideoMode(900, 600), "Juego - TRUCAZO");
+    ventana.setFramerateLimit(60);
 
-    for (rondaActual = 0; rondaActual < 15 && ventana.isOpen(); rondaActual++) {
+    for (rondaActual = 0; rondaActual < 15 && ventana.isOpen(); rondaActual++)
+    {
         iniciarRonda(ventana);
     }
 
-    if (ventana.isOpen()) {
+
+    if (ventana.isOpen())
+    {
         mostrarMensaje(ventana, "Fin de la partida. Puntaje total: " + to_string(puntajeTotal));
     }
 
     ventana.close();
 }
 
-void Partida::iniciarRonda(sf::RenderWindow& ventana) {
+                                                                                        // Ejecuta la logica de una ronda //
+                                                                                        // Reparte cartas iniciales //
+                                                                                        // Permite al jugador jugar o descartar cartas //
+                                                                                        // Evalua si se alcanza el puntaje objetivo //
+                                                                                        // Muestra el resultado de la ronda //
+void Partida::iniciarRonda(sf::RenderWindow& ventana)
+{
     mazo = Mazo();
     jugadasRestantes = 3;
     descartesRestantes = 2;
     puntajeRonda = 0;
     mano.clear();
 
-    if (mazo.repartirCartas()) {
+    if (mazo.repartirCartas())
+    {
         const Carta* iniciales = mazo.getCartasJugador();
-        for (int i = 0; i < mazo.getCantidadCartasJugador(); i++) {
+        for (int i = 0; i < mazo.getCantidadCartasJugador(); i++)
+        {
             mano.push_back(iniciales[i]);
         }
     }
 
     bool victoria = false;
 
-    while ((jugadasRestantes > 0 || descartesRestantes > 0) && ventana.isOpen()) {
+    while ((jugadasRestantes > 0 || descartesRestantes > 0) && ventana.isOpen())
+    {
         int c1 = -1, c2 = -1, c3 = -1, c4 = -1, accion = 0;
 
         seleccionarCartasJugador(
@@ -74,6 +93,8 @@ void Partida::iniciarRonda(sf::RenderWindow& ventana) {
     finalizarRonda(ventana, victoria);
 }
 
+                                                                                        // Suma los valores de las cartas seleccionadas (juego) al puntaje actual de ronda //
+                                                                                        // Las cartas jugadas se eliminan de la mano y luego se repone la mano //
 void Partida::jugarCartas(const vector<int>& seleccion) {
     for (int idx : seleccion) {
         if (idx >= 0 && idx < mano.size()) {
@@ -85,6 +106,7 @@ void Partida::jugarCartas(const vector<int>& seleccion) {
     rellenarMano();
 }
 
+                                                                                        // Descarta las cartas seleccionadas y luego rellena la mano con nuevas del mazo //
 void Partida::descartarCartas(const vector<int>& seleccion) {
     for (int idx : seleccion) {
         if (idx >= 0 && idx < mano.size()) {
@@ -95,6 +117,8 @@ void Partida::descartarCartas(const vector<int>& seleccion) {
     rellenarMano();
 }
 
+                                                                                        // Reemplaza solo las cartas vacias de la mano con nuevas cartas del mazo //
+                                                                                        // Se asegura de no modificar las cartas que el jugador conserva //
 void Partida::rellenarMano() {
     vector<int> vacios;
     for (int i = 0; i < mano.size(); i++) {
@@ -111,10 +135,13 @@ void Partida::rellenarMano() {
     }
 }
 
+                                                                                        // Devuelve true si el puntaje actual de ronda alcanza o supera el objetivo //
 bool Partida::verificarVictoria() {
     return puntajeRonda >= puntajesObjetivo[rondaActual];
 }
 
+                                                                                        // Muestra un mensaje en pantalla con SFML //
+                                                                                        // Espera a que el jugador presione ENTER para continuar //
 void Partida::mostrarMensaje(sf::RenderWindow& ventana, const string& mensaje) {
     sf::Font fuente;
     fuente.loadFromFile("C:/Windows/Fonts/arial.ttf");
@@ -138,6 +165,8 @@ void Partida::mostrarMensaje(sf::RenderWindow& ventana, const string& mensaje) {
     }
 }
 
+                                                                                        // Muestra si la ronda fue ganada o perdida //
+                                                                                        // Si se gana, suma el puntaje al total y muestra un mensaje de felicitacion //
 void Partida::finalizarRonda(sf::RenderWindow& ventana, bool victoria) {
     if (victoria) {
         puntajeTotal += puntajesObjetivo[rondaActual];

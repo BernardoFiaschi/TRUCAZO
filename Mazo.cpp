@@ -53,7 +53,7 @@ void Mazo::mostrarCartasJugador() const
         c.mostrar();
 }
 
-                                                                // Mostramos cuÂ ntas cartas quedan en la pila mezclada //
+                                                                // Mostramos cu ntas cartas quedan en la pila mezclada //
 void Mazo::mostrarCartasDisponibles() const
 {
     cout << "Cartas restantes en el mazo: " << pilaCartas.size() << "";
@@ -67,7 +67,7 @@ void Mazo::mostrarCartasDisponibles() const
 }
 
 
-                                                                // Mostramos el mazo original completo //
+                                                                // Mostramos el mazo original //
 void Mazo::mostrarMazoOriginal() const
 {
     cout << endl << "Mazo original: " << endl;
@@ -76,23 +76,33 @@ void Mazo::mostrarMazoOriginal() const
 }
 
                                                                 // Devolvemos un puntero al arreglo de cartas del jugador para mostrar graficamente las cartas //
-const Carta* Mazo::getCartasJugador() const {
+                                                                // Devuelve un puntero al array de cartas del jugador //
+                                                                // Esto se utiliza para visualizacion con SFML //
+const Carta* Mazo::getCartasJugador() const
+{
     return cartasJugador.data();
 }
 
                                                                 // Devolvemos cuantas cartas tiene actualmente el jugador //
-int Mazo::getCantidadCartasJugador() const {
+                                                                // Retornamos la cantidad de cartas que tiene actualmente el jugador en la mano //
+int Mazo::getCantidadCartasJugador() const
+{
     return cartasJugador.size();
 }
 
-int Mazo::getCantidadCartasDisponibles() const {
+                                                                // Retornamos la cantidad de cartas restantes en el mazo mezclado //
+int Mazo::getCantidadCartasDisponibles() const
+{
     return cantidadCartasDisponibles;
 }
 
 
 
 
-bool Mazo::darCartas(int cantidad, std::vector<Carta>& nuevasCartas) {
+                                                                        // Extrae una cantidad de cartas del mazo para usarse como reemplazo (descartes o jugadas) //
+                                                                        // Las cartas extraidas se devuelven por referencia en el vector 'nuevasCartas' //
+bool Mazo::darCartas(int cantidad, std::vector<Carta>& nuevasCartas)
+{
     nuevasCartas.clear();
     if (pilaCartas.size() < cantidad) return false;
 

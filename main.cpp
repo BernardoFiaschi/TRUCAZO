@@ -4,6 +4,7 @@
 #include "Partida.h"
 using namespace std;
 
+
 int main()
 {
     int opcion;
