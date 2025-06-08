@@ -36,7 +36,7 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         texturas[i].loadFromFile(ruta);
         sprites[i].setTexture(texturas[i]);
         sprites[i].setScale(1.5f, 1.5f);
-        sprites[i].setPosition(85 + i * 160, 300);
+        sprites[i].setPosition(85 + i * 160, 350);
     }
 
     bool terminar = false;

@@ -116,7 +116,6 @@ void Partida::descartarCartas(const vector<int>& seleccion) {
     descartesRestantes--;
     rellenarMano();
 }
-
                                                                                         // Reemplaza solo las cartas vacias de la mano con nuevas cartas del mazo //
                                                                                         // Se asegura de no modificar las cartas que el jugador conserva //
 void Partida::rellenarMano() {

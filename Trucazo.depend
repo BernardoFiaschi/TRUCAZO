@@ -4,33 +4,33 @@
 	<iostream>
 	<vector>
 
-1749089068 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
+1749159093 c:\users\berna\onedrive\desktop\proyecto final trucazo\carta.h
 	<string>
 	<vector>
 
-1749095642 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
+1749162043 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\main.cpp
 	<iostream>
 	"Mazo.h"
 	"Imagenes.h"
 	"Partida.h"
 
-1749157873 c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.h
+1749159093 c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.h
 	<vector>
 	<stack>
 	"Carta.h"
 
-1749157873 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.cpp
+1749159093 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\mazo.cpp
 	"Mazo.h"
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<stack>
 
-1749157873 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.cpp
+1749162859 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.cpp
 	"Imagenes.h"
 	<iostream>
 
-1749157873 c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.h
+1749158887 c:\users\berna\onedrive\desktop\proyecto final trucazo\imagenes.h
 	<SFML/Graphics.hpp>
 	"Carta.h"
 
@@ -443,13 +443,13 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1749108808 c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.h
+1749159093 c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.h
 	<vector>
 	"Carta.h"
 	"Mazo.h"
 	<SFML/Graphics.hpp>
 
-1749098122 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.cpp
+1749162804 source:c:\users\berna\onedrive\desktop\proyecto final trucazo\partida.cpp
 	"Partida.h"
 	"Imagenes.h"
 	<SFML/Graphics.hpp>
