@@ -8,28 +8,15 @@
 #include<iostream>
 using namespace std;
 
-
-Manager::Manager(): jugador(1,"",0,0) {}
-
-void Manager::mostrarMenu(sf::RenderWindow& ventana)
-{
-    Menu menu(ventana);
-    menu.ejecutar();
-}
-
-void Manager::mostrarMazo(sf::RenderWindow& ventana)
-{
-
+// --- FUNCIONES AUXILIARES PRIVADAS ---
+void Manager::dibujarMazoCartas(sf::RenderWindow& ventana) {
     ventana.clear();
     int cartasEnFila=0;
     int x=50,y=50;
-    for(const Carta& carta : mazo.getMazoOriginal())
-    {
+    for(const Carta& carta : mazo.getMazoOriginal()) {
         int id=carta.getIdCarta();
-
         sf::Texture texturaCarta;
-        if(!texturaCarta.loadFromFile("cartas/" + to_string(id) + ".png"))
-        {
+        if(!texturaCarta.loadFromFile("cartas/" + to_string(id) + ".png")) {
             cout<<"Error cargando la textura de cartas!"<<id<<endl;
             continue;
         }
@@ -40,37 +27,46 @@ void Manager::mostrarMazo(sf::RenderWindow& ventana)
 
         x +=65;
         cartasEnFila++;
-        if(cartasEnFila==10)
-        {
+        if(cartasEnFila==10) {
             cartasEnFila=0;
             x =50;
             y +=110;
         }
     }
     ventana.display();
+}
 
+void Manager::esperarTecla(sf::RenderWindow& ventana) {
     bool esperando=true;
-    while(esperando && ventana.isOpen())
-    {
+    while(esperando && ventana.isOpen()) {
         sf::Event ev;
-        while(ventana.pollEvent(ev))
-        {
+        while(ventana.pollEvent(ev)) {
             if(ev.type == sf::Event::Closed)ventana.close();
             if(ev.type == sf::Event::KeyPressed)esperando= false;
         }
     }
 }
 
-void Manager::iniciarPartida(sf::RenderWindow& ventana)
-{
+// --- FUNCIONES ORIGINALES ---
+Manager::Manager(): jugador(1,"",0,0) {}
+
+void Manager::mostrarMenu(sf::RenderWindow& ventana) {
+    Menu menu(ventana);
+    menu.ejecutar();
+}
+
+void Manager::mostrarMazo(sf::RenderWindow& ventana) {
+    dibujarMazoCartas(ventana);
+    esperarTecla(ventana);
+}
+
+void Manager::iniciarPartida(sf::RenderWindow& ventana) {
     Jugador jugador;
     Partida partida(jugador);
-
     partida.iniciar(ventana);
 }
 
-void Manager::mostrarMensaje(sf::RenderWindow& ventana,const string& mensaje)
-{
+void Manager::mostrarMensaje(sf::RenderWindow& ventana,const string& mensaje) {
     sf::Font fuente;
     fuente.loadFromFile("fuentes/Poppins-Regular.ttf");
 
@@ -81,11 +77,9 @@ void Manager::mostrarMensaje(sf::RenderWindow& ventana,const string& mensaje)
     texto.setString(mensaje + " ENTER para continuar...");
     texto.setPosition(100,250);
 
-    while(ventana.isOpen())
-    {
+    while(ventana.isOpen()) {
         sf::Event event;
-        while(ventana.pollEvent(event))
-        {
+        while(ventana.pollEvent(event)) {
             if(event.type == sf::Event::Closed)ventana.close();
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)return;
         }
@@ -95,22 +89,19 @@ void Manager::mostrarMensaje(sf::RenderWindow& ventana,const string& mensaje)
     }
 }
 
-void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& partida)
-{
+void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& partida) {
     int numeroRonda = partida.getRondaActual();
     if (numeroRonda >= 15) numeroRonda = 14;
 
     sf::Texture fondo;
-    if (victoria)
-    {
+    if (victoria) {
         fondo.loadFromFile("fondos/RONDAGANADA.png");
         jugador.sumarPuntos(partida.getPuntajeRonda());
         jugador.aumentarPartidas();
         Sonidos::get().detenerMusicaFondo();
         Sonidos::get().reproducirVictoria();
     }
-    else
-    {
+    else {
         fondo.loadFromFile("fondos/DERROTA.png");
         Sonidos::get().detenerMusicaFondo();
         Sonidos::get().reproducirDerrota();
@@ -144,35 +135,29 @@ void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& 
 
     // Esperar ENTER
     bool esperando = true;
-    while (esperando && ventana.isOpen())
-    {
+    while (esperando && ventana.isOpen()) {
         sf::Event event;
-        while (ventana.pollEvent(event))
-        {
+        while (ventana.pollEvent(event)) {
             if (event.type == sf::Event::Closed) ventana.close();
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
                 esperando = false;
         }
     }
 
-    // Restaurar m£sica si sigue el juego
-    if (victoria && ventana.isOpen())
-    {
+    // Restaurar m√∫sica si sigue el juego
+    if (victoria && ventana.isOpen()) {
         Sonidos::get().detenerVictoria();
         Sonidos::get().reproducirMusicaFondo();
     }
-      else
-    {
+    else {
         Sonidos::get().detenerDerrota();
-        Sonidos::get().reproducirMusicaFondo(); // Detener sonido de derrota al volver al men£
+        Sonidos::get().reproducirMusicaFondo();
     }
 }
 
-void Manager::mostrarCreditos(sf::RenderWindow& ventana)
-{
+void Manager::mostrarCreditos(sf::RenderWindow& ventana) {
     sf::Font fuente;
-    if(!fuente.loadFromFile("fuentes/Poppins-Regular.ttf"))
-    {
+    if(!fuente.loadFromFile("fuentes/Poppins-Regular.ttf")) {
         cout<<"No se pudo cargar la fuente de los creditos."<<endl;
         return;
     }
@@ -180,15 +165,15 @@ void Manager::mostrarCreditos(sf::RenderWindow& ventana)
     sf::Text creditos;
     creditos.setFont(fuente);
     creditos.setString("=================="
-                       "*     TRUCAZO    *"
-                       "=================="
-                       "Desarrollado por:"
-                       "Angeles Albornoz-"
-                       "Bernardo Fiaschi-"
-                       "Raul Luppini"
-                       "C++ con SFML -2025"
-                       "Gracias por jugar!"
-                       "==================");
+                        "*     TRUCAZO    *"
+                        "=================="
+                        "Desarrollado por:"
+                        "Angeles Albornoz-"
+                        "Bernardo Fiaschi-"
+                        "Raul Luppini"
+                        "C++ con SFML -2025"
+                        "Gracias por jugar!"
+                        "==================");
     creditos.setCharacterSize(28);
     creditos.setFillColor(sf::Color::White);
     creditos.setPosition(100,100);
@@ -198,14 +183,11 @@ void Manager::mostrarCreditos(sf::RenderWindow& ventana)
     ventana.display();
 
     bool esperando=true;
-    while(esperando && ventana.isOpen())
-    {
+    while(esperando && ventana.isOpen()) {
         sf::Event evento;
-        while(ventana.pollEvent(evento))
-        {
+        while(ventana.pollEvent(evento)) {
             if(evento.type == sf::Event::Closed)ventana.close();
             if(evento.type == sf::Event::KeyPressed)esperando=false;
         }
     }
-
 }

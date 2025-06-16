@@ -9,6 +9,12 @@ private:
     std::vector<Carta> cartasJugador;
     std::vector<Carta> mazoOriginal;
     int cantidadCartasDisponibles;
+
+    // --- FUNCIONES AUXILIARES PRIVADAS ---
+    std::vector<Carta> inicializarMazoOriginal();
+    void mezclarMazo(std::vector<Carta>& iniciales);
+    void cargarPilaCartas(std::vector<Carta>& mezcladas);
+
 public:
     Mazo();
     bool repartirCartas();

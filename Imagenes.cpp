@@ -8,8 +8,33 @@
 #include <string>
 using namespace std;
 
-// Renderiza la pantalla de selecci¢n de cartas usando SFML.
-// Muestra fondo, cartas, puntajes, jugada actual y permite seleccionar hasta 4 cartas para jugar o descartar.
+// --- FUNCIONES AUXILIARES PRIVADAS ---
+static void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* texturas, sf::Sprite* sprites) {
+    for (int i = 0; i < cantidad; i++) {
+        string ruta = "cartas/" + to_string(cartas[i].getIdCarta()) + ".png";
+        texturas[i].loadFromFile(ruta);
+        sprites[i].setTexture(texturas[i]);
+        sprites[i].setScale(1.35f, 1.35f);
+        sprites[i].setPosition(212 + i * 100, 460);
+    }
+}
+
+static void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* seleccionadas, int cantidad) {
+    for (int i = 0; i < cantidad; i++) {
+        sprites[i].setPosition(212 + i * 100, seleccionadas[i] ? 445 : 460);
+        ventana.draw(sprites[i]);
+        if (seleccionadas[i]) {
+            sf::RectangleShape marco(sf::Vector2f(sprites[i].getGlobalBounds().width, sprites[i].getGlobalBounds().height));
+            marco.setPosition(sprites[i].getPosition());
+            marco.setFillColor(sf::Color::Transparent);
+            marco.setOutlineThickness(3);
+            marco.setOutlineColor(sf::Color::Red);
+            ventana.draw(marco);
+        }
+    }
+}
+
+// --- FUNCIÃ“N PRINCIPAL ---
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
                                const Carta* cartas, int cantidad,
                                int ronda, int objetivo, int puntajeActual,
@@ -19,28 +44,23 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
                                int& accion,
                                const string& jugadaActualTexto)
 {
-    // Cargar imagen de fondo
     sf::Texture fondoTextura;
     if (!fondoTextura.loadFromFile("fondos/FONDOTRUCAZO.png")) {
         cerr << "No se pudo cargar la imagen de fondo." << endl;
     }
     sf::Sprite fondoSprite(fondoTextura);
 
-    // Fuente
     sf::Font fuente;
     fuente.loadFromFile("C:/Windows/Fonts/arial.ttf");
 
-    // Mazo
     sf::Texture texturaMazo;
-    if (!texturaMazo.loadFromFile("cartas/atrascarta.png"))
-    {
+    if (!texturaMazo.loadFromFile("cartas/atrascarta.png")) {
         cerr << "No se pudo cargar la imagen del mazo." << endl;
     }
     sf::Sprite spriteMazo(texturaMazo);
-    spriteMazo.setScale(0.125f, 0.125f); // Escalado opcional
-    spriteMazo.setPosition(25, 425); // Ajust  posici¢n seg£n tu necesidad
+    spriteMazo.setScale(0.125f, 0.125f);
+    spriteMazo.setPosition(25, 425);
 
-    // Textos
     sf::Text texto, info;
     texto.setFont(fuente);
     texto.setCharacterSize(20);
@@ -52,19 +72,12 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
     info.setFillColor(sf::Color::Cyan);
     info.setPosition(20, 60);
 
-    // Cartas y selecci¢n
     sf::Texture texturas[5];
     sf::Sprite sprites[5];
     bool seleccionadas[5] = { false, false, false, false, false };
     int seleccion[4] = { -1, -1, -1, -1 };
 
-    for (int i = 0; i < cantidad; i++) {
-        string ruta = "cartas/" + to_string(cartas[i].getIdCarta()) + ".png";
-        texturas[i].loadFromFile(ruta);
-        sprites[i].setTexture(texturas[i]);
-        sprites[i].setScale(1.35f, 1.35f);
-        sprites[i].setPosition(212 + i * 100, 460); // Posici¢n centrada
-    }
+    cargarTexturasCartas(cartas, cantidad, texturas, sprites);
 
     bool terminar = false;
     while (!terminar && ventana.isOpen())
@@ -123,21 +136,7 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         ventana.draw(texto);
         ventana.draw(info);
 
-        for (int i = 0; i < cantidad; i++)
-        {
-            sprites[i].setPosition(212 + i * 100, seleccionadas[i] ? 445 : 460);
-            ventana.draw(sprites[i]);
-
-            if (seleccionadas[i])
-            {
-                sf::RectangleShape marco(sf::Vector2f(sprites[i].getGlobalBounds().width, sprites[i].getGlobalBounds().height));
-                marco.setPosition(sprites[i].getPosition());
-                marco.setFillColor(sf::Color::Transparent);
-                marco.setOutlineThickness(3);
-                marco.setOutlineColor(sf::Color::Red);
-                ventana.draw(marco);
-            }
-        }
+        mostrarSeleccion(ventana, sprites, seleccionadas, cantidad);
 
         // Evaluar jugada seleccionada
         Carta seleccionadasArray[4];
@@ -154,13 +153,11 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
 
         if (!jugadaActual.empty())
         {
-
             sf::RectangleShape globo(sf::Vector2f(250, 50));
             globo.setFillColor(sf::Color(255, 255, 255, 140));
             globo.setOutlineColor(sf::Color::Black);
             globo.setOutlineThickness(2);
             globo.setPosition(350, 290);
-
 
             sf::Text textoGlobo;
             textoGlobo.setFont(fuente);
@@ -171,7 +168,6 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
             sf::FloatRect textoBounds = textoGlobo.getLocalBounds();
             textoGlobo.setOrigin(textoBounds.left + textoBounds.width / 2.f, textoBounds.top + textoBounds.height / 2.f);
             textoGlobo.setPosition(globo.getPosition().x + globo.getSize().x / 2.f, globo.getPosition().y + globo.getSize().y / 2.f);
-
 
             sf::ConvexShape punta;
             punta.setPointCount(3);

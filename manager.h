@@ -3,11 +3,17 @@
 #include "Partida.h"
 #include "Jugador.h"
 #include <SFML/Audio.hpp>
+
 class Manager
 {
     Jugador jugador;
     Partida partida;
     Mazo mazo;
+
+    // --- FUNCIONES AUXILIARES PRIVADAS ---
+    void dibujarMazoCartas(sf::RenderWindow& ventana);
+    void esperarTecla(sf::RenderWindow& ventana);
+
 public:
     Manager();
     void mostrarMenu(sf::RenderWindow& ventana);

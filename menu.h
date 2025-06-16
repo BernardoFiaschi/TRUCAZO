@@ -2,8 +2,10 @@
 #include "Sonidos.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include<vector>
+#include <vector>
 using namespace std;
+
+class Manager; // Forward declaration para evitar include circular
 
 class Menu
 {
@@ -15,6 +17,11 @@ private:
     sf::Texture texturaFondo;
     sf::Sprite spriteFondo;
     int opcionSeleccionada;
+
+    // --- FUNCIONES AUXILIARES PRIVADAS ---
+    void dibujarMenu();
+    void gestionarEventos(Manager& cargar, bool& terminar);
+
 public:
     Menu(sf::RenderWindow& v);
     void ejecutar();
