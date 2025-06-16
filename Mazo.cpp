@@ -1,115 +1,147 @@
+#include<iostream>
 #include "Mazo.h"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <stack>
+#include<cstdlib>
+#include<ctime>
+#include<stack>
 using namespace std;
-
 
 Mazo::Mazo()
 {
-    vector<Carta> iniciales = CartasMazo();
+    vector<Carta> iniciales= CartasMazo();
     mazoOriginal = iniciales;
-    srand(time(NULL));
+    srand(time(nullptr));
     cantidadCartasDisponibles = 40;
 
-    while (!iniciales.empty())
+    while(!iniciales.empty())
     {
-        int indice = rand() % iniciales.size();
+        int indice=rand() % iniciales.size();
         pilaCartas.push(iniciales[indice]);
-        iniciales.erase(iniciales.begin() + indice);
+        iniciales.erase(iniciales.begin()+ indice);
+
     }
+
 }
 
-
-                                                                // Reparte 5 cartas al jugador desde la pila de cartas mezcladas //
 bool Mazo::repartirCartas()
 {
-    if (pilaCartas.size() < 5)
+    if(pilaCartas.size()<5)
     {
-        cout << "No hay mas cartas para repartir." << endl;
+        cout<<"No hay mas cartas para repartir."<<endl;
         return false;
     }
-
-                                                                // Limpiamos la mano anterior del jugador //
     cartasJugador.clear();
-
-                                                                // Extraemos 5 cartas del tope de la pila y las agregamos al jugador //
-    for (int i = 0; i < 5; i++)
+    for(int x=0;x<5;x++)
     {
-        cartasJugador.push_back(pilaCartas.top());
-        pilaCartas.pop();
-        cantidadCartasDisponibles--;
+      cartasJugador.push_back(pilaCartas.top());
+      pilaCartas.pop();
+      cantidadCartasDisponibles--;
     }
     return true;
 }
 
-                                                                // Mostramos las cartas actuales del jugador por consola //
-void Mazo::mostrarCartasJugador() const
+bool Mazo::darCartas(int cantidad,vector<Carta>& nuevasCartas)
 {
-    cout << "---------------------------------" << endl;
-    cout << "Tus cartas son:" << endl << endl;
-    for (const Carta& c : cartasJugador)
-        c.mostrar();
+    nuevasCartas.clear();
+    if(pilaCartas.size()< cantidad) return false;
+    for(int x=0;x<cantidad;x++)
+    {
+     nuevasCartas.push_back(pilaCartas.top());
+     pilaCartas.pop();
+     cantidadCartasDisponibles--;
+    }
+    return true;
 }
 
-                                                                // Mostramos cu ntas cartas quedan en la pila mezclada //
+void Mazo::mostrarCartasJugador() const
+{
+   cout<<"=================================="<<endl;
+   cout<<"Tus cartas son: "<<endl<<endl;
+   for(const Carta& c : cartasJugador)
+   {
+       c.mostrar();
+   }
+}
+
 void Mazo::mostrarCartasDisponibles() const
 {
-    cout << "Cartas restantes en el mazo: " << pilaCartas.size() << "";
-
-    stack<Carta> copia = pilaCartas;
-    while (!copia.empty())
+    cout<<"Cartas restantes en el mazo: "<<pilaCartas.size()<<endl;
+    stack<Carta> copia=pilaCartas;
+    while(!copia.empty())
     {
         copia.top().mostrar();
         copia.pop();
     }
 }
-
-
-                                                                // Mostramos el mazo original //
 void Mazo::mostrarMazoOriginal() const
 {
-    cout << endl << "Mazo original: " << endl;
-    for (const Carta& c : mazoOriginal)
+    cout<<"Mazo original: "<<endl;
+    for(const Carta& c: mazoOriginal)
+    {
         c.mostrar();
+    }
+}
+const vector<Carta>& Mazo::getMazoOriginal() const
+{
+    return mazoOriginal;
 }
 
-                                                                // Devolvemos un puntero al arreglo de cartas del jugador para mostrar graficamente las cartas //
-                                                                // Devuelve un puntero al array de cartas del jugador //
-                                                                // Esto se utiliza para visualizacion con SFML //
 const Carta* Mazo::getCartasJugador() const
 {
     return cartasJugador.data();
 }
-
-                                                                // Devolvemos cuantas cartas tiene actualmente el jugador //
-                                                                // Retornamos la cantidad de cartas que tiene actualmente el jugador en la mano //
 int Mazo::getCantidadCartasJugador() const
 {
     return cartasJugador.size();
 }
-
-                                                                // Retornamos la cantidad de cartas restantes en el mazo mezclado //
 int Mazo::getCantidadCartasDisponibles() const
 {
     return cantidadCartasDisponibles;
 }
 
-
-
-
-                                                                        // Extrae una cantidad de cartas del mazo para usarse como reemplazo (descartes o jugadas) //
-                                                                        // Las cartas extraidas se devuelven por referencia en el vector 'nuevasCartas' //
-bool Mazo::darCartas(int cantidad, std::vector<Carta>& nuevasCartas)
-{
-    nuevasCartas.clear();
-    if (pilaCartas.size() < cantidad) return false;
-
-    for (int i = 0; i < cantidad; i++) {
-        nuevasCartas.push_back(pilaCartas.top());
-        pilaCartas.pop();
-        cantidadCartasDisponibles--;
+vector<Carta> Mazo::CartasMazo()
+    {
+    vector<Carta> cartas =
+    {
+        Carta(1, "espada", 1, 50),
+        Carta(1, "basto", 2, 35),
+        Carta(7, "espada", 3, 30),
+        Carta(7, "oro", 4, 25),
+        Carta(3, "espada", 5, 20),
+        Carta(3, "basto", 6, 20),
+        Carta(3, "oro", 7, 20),
+        Carta(3, "copa", 8, 20),
+        Carta(2, "espada", 9, 15),
+        Carta(2, "basto", 10, 15),
+        Carta(2, "oro", 11, 15),
+        Carta(2, "copa", 12, 15),
+        Carta(1, "oro", 13, 11),
+        Carta(1, "copa", 14, 11),
+        Carta(12, "espada", 15, 10),
+        Carta(12, "basto", 16, 10),
+        Carta(12, "oro", 17, 10),
+        Carta(12, "copa", 18, 10),
+        Carta(11, "espada", 19, 9),
+        Carta(11, "basto", 20, 9),
+        Carta(11, "oro", 21, 9),
+        Carta(11, "copa", 22, 9),
+        Carta(10, "espada", 23, 8),
+        Carta(10, "basto", 24, 8),
+        Carta(10, "oro", 25, 8),
+        Carta(10, "copa", 26, 8),
+        Carta(7, "basto", 27, 7),
+        Carta(7, "copa", 28, 7),
+        Carta(6, "espada", 29, 6),
+        Carta(6, "basto", 30, 6),
+        Carta(6, "oro", 31, 6),
+        Carta(6, "copa", 32, 6),
+        Carta(5, "espada", 33, 5),
+        Carta(5, "basto", 34, 5),
+        Carta(5, "oro", 35, 5),
+        Carta(5, "copa", 36, 5),
+        Carta(4, "espada", 37, 4),
+        Carta(4, "basto", 38, 4),
+        Carta(4, "oro", 39, 4),
+        Carta(4, "copa", 40, 4)
+    };
+    return cartas;
     }
-    return true;
-}

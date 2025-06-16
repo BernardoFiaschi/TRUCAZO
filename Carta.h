@@ -1,26 +1,23 @@
 #pragma once
 #include <string>
 #include <vector>
-using namespace std;
 
-class Carta
-{
+class Carta {
 private:
     int numero;
-    string palo;
+    std::string palo;
     int idCarta;
     int valor;
 
 public:
     Carta();
-    Carta(int num, string p, int id, int pts);
+    Carta(int num, std::string p, int id, int pts);
 
     int getNumero() const;
-    string getPalo() const;
+    std::string getPalo() const;
     int getIdCarta() const;
     int getValor() const;
 
     void mostrar() const;
 };
 
-vector<Carta> CartasMazo();

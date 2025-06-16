@@ -20,6 +20,7 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
 					<Add directory="SFML-2.5.1-windows-gcc-7.3.0-mingw-32-bit/SFML-2.5.1/lib" />
 				</Linker>
 			</Target>
@@ -32,13 +33,23 @@
 		</Linker>
 		<Unit filename="Carta.cpp" />
 		<Unit filename="Carta.h" />
-		<Unit filename="Imagenes.cpp" />
 		<Unit filename="Imagenes.h" />
+		<Unit filename="Jugadas.cpp" />
+		<Unit filename="Jugadas.h" />
+		<Unit filename="Jugador.cpp" />
+		<Unit filename="Jugador.h" />
 		<Unit filename="Mazo.cpp" />
 		<Unit filename="Mazo.h" />
 		<Unit filename="Partida.cpp" />
 		<Unit filename="Partida.h" />
+		<Unit filename="Sonidos.cpp" />
+		<Unit filename="Sonidos.h" />
+		<Unit filename="imagenes.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="manager.cpp" />
+		<Unit filename="manager.h" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

@@ -5,7 +5,12 @@ using namespace std;
 
 
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
-                               const Carta cartas[], int cantidad,
+                               const Carta* cartas, int cantidad,
                                int ronda, int objetivo, int puntajeActual,
                                int& c1, int& c2, int& c3, int& c4,
-                               int jugadasRestantes, int descartesRestantes, int cartasEnMazo, int& accion);
+                               int jugadas, int descartes, int cartasEnMazo,
+                               int& jugadasRestantes, int& descartesRestantes,
+                               int& accion,
+                               const string& jugadaActualTexto);
+
+
