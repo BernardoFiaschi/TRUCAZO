@@ -8,9 +8,18 @@
 #include <string>
 using namespace std;
 
-// --- FUNCIONES AUXILIARES PRIVADAS ---
-static void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* texturas, sf::Sprite* sprites) {
-    for (int i = 0; i < cantidad; i++) {
+/*
+    Funcion que se encarga de cargar la textura de cada carta y asignarla a su sprite.
+    Para que: poder mostrar cada carta con su imagen correspondiente.
+    Como lo hace:
+      - Usa el ID de la carta para construir el nombre del archivo.
+      - Carga la textura desde la carpeta de imagenes.
+      - Configura el sprite con su textura, escala y posicion en pantalla.
+*/
+void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* texturas, sf::Sprite* sprites)
+{
+    for (int i = 0; i < cantidad; i++)
+    {
         string ruta = "cartas/" + to_string(cartas[i].getIdCarta()) + ".png";
         texturas[i].loadFromFile(ruta);
         sprites[i].setTexture(texturas[i]);
@@ -19,11 +28,22 @@ static void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture*
     }
 }
 
-static void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* seleccionadas, int cantidad) {
-    for (int i = 0; i < cantidad; i++) {
+/*
+    Dibuja las cartas en pantalla y les agrega un marco rojo si est n seleccionadas.
+    Para que: darle al jugador una se¤al visual clara de qu‚ cartas eligi¢.
+    Como lo hace:
+      - Baja levemente la carta seleccionada.
+      - Dibuja un rect ngulo rojo encima para remarcarla.
+*/
+void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* seleccionadas, int cantidad)
+{
+    for (int i = 0; i < cantidad; i++)
+    {
         sprites[i].setPosition(212 + i * 100, seleccionadas[i] ? 445 : 460);
         ventana.draw(sprites[i]);
-        if (seleccionadas[i]) {
+
+        if (seleccionadas[i])
+        {
             sf::RectangleShape marco(sf::Vector2f(sprites[i].getGlobalBounds().width, sprites[i].getGlobalBounds().height));
             marco.setPosition(sprites[i].getPosition());
             marco.setFillColor(sf::Color::Transparent);
@@ -34,18 +54,34 @@ static void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, boo
     }
 }
 
-// --- FUNCIÃ“N PRINCIPAL ---
+/*
+    Esta es la funcion principal de seleccion de cartas durante la partida.
+    Para que:
+      - El jugador pueda elegir qu‚ cartas quiere jugar o descartar.
+      - Ver en tiempo real cu ntas jugadas y descartes le quedan.
+    Por que:
+      - Necesitamos una interfaz interactiva para elegir cartas sin escribir comandos.
+    Como lo hace:
+      - Dibuja las cartas y toda la informacion.
+      - Captura las teclas 1 a 5 para marcar cartas.
+      - ENTER juega, BACKSPACE descarta.
+      - Muestra texto y un globo con el tipo de jugada detectada.
+*/
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
-                               const Carta* cartas, int cantidad,
-                               int ronda, int objetivo, int puntajeActual,
-                               int& c1, int& c2, int& c3, int& c4,
-                               int jugadas, int descartes, int cartasEnMazo,
-                               int& jugadasRestantes, int& descartesRestantes,
-                               int& accion,
-                               const string& jugadaActualTexto)
+                              const Carta* cartas, int cantidad,
+                              int ronda, int objetivo, int puntajeActual,
+                              int& c1, int& c2, int& c3, int& c4,
+                              int jugadas, int descartes, int cartasEnMazo,
+                              int& jugadasRestantes, int& descartesRestantes,
+                              int& accion,
+                              const Jugador& jugador,
+                              const string& jugadaActualTexto,
+                              const vector<Comodin>& comodinesActivos,
+                              int rondasGanadas)
 {
     sf::Texture fondoTextura;
-    if (!fondoTextura.loadFromFile("fondos/FONDOTRUCAZO.png")) {
+    if (!fondoTextura.loadFromFile("fondos/FONDOTRUCAZO.png"))
+    {
         cerr << "No se pudo cargar la imagen de fondo." << endl;
     }
     sf::Sprite fondoSprite(fondoTextura);
@@ -54,12 +90,13 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
     fuente.loadFromFile("C:/Windows/Fonts/arial.ttf");
 
     sf::Texture texturaMazo;
-    if (!texturaMazo.loadFromFile("cartas/atrascarta.png")) {
+    if (!texturaMazo.loadFromFile("cartas/atrascarta.png"))
+    {
         cerr << "No se pudo cargar la imagen del mazo." << endl;
     }
     sf::Sprite spriteMazo(texturaMazo);
     spriteMazo.setScale(0.125f, 0.125f);
-    spriteMazo.setPosition(25, 425);
+    spriteMazo.setPosition(780, 425); // ahora aparece a la derecha
 
     sf::Text texto, info;
     texto.setFont(fuente);
@@ -85,21 +122,26 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         sf::Event event;
         while (ventana.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed) ventana.close();
+            if (event.type == sf::Event::Closed)
+                ventana.close();
 
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num5)
                 {
                     int idx = event.key.code - sf::Keyboard::Num1;
-                    if (seleccionadas[idx]) {
+                    if (seleccionadas[idx])
+                    {
                         seleccionadas[idx] = false;
                         Sonidos::get().reproducirSeleccionar();
                         for (int i = 0; i < 4; i++) if (seleccion[i] == idx) seleccion[i] = -1;
                     }
-                    else {
-                        for (int i = 0; i < 4; i++) {
-                            if (seleccion[i] == -1) {
+                    else
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (seleccion[i] == -1)
+                            {
                                 seleccion[i] = idx;
                                 seleccionadas[idx] = true;
                                 Sonidos::get().reproducirSeleccionar();
@@ -109,13 +151,15 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
                     }
                 }
 
-                if (event.key.code == sf::Keyboard::Enter) {
+                if (event.key.code == sf::Keyboard::Enter)
+                {
                     accion = 1;
                     tie(c1, c2, c3, c4) = make_tuple(seleccion[0], seleccion[1], seleccion[2], seleccion[3]);
                     terminar = true;
                 }
 
-                if (event.key.code == sf::Keyboard::BackSpace) {
+                if (event.key.code == sf::Keyboard::BackSpace)
+                {
                     accion = -1;
                     tie(c1, c2, c3, c4) = make_tuple(seleccion[0], seleccion[1], seleccion[2], seleccion[3]);
                     terminar = true;
@@ -128,28 +172,52 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         ventana.draw(spriteMazo);
 
         texto.setString("Selecciona con 1-5 (max 4). ENTER = jugar | BACKSPACE = descartar");
-        info.setString("Ronda " + to_string(ronda) + " | Objetivo: " + to_string(objetivo) +
+        info.setString("Jugador: " + jugador.getNombre() + " | Ronda " + to_string(ronda) + " | Objetivo: " + to_string(objetivo) +
                        " | Jugadas: " + to_string(jugadasRestantes) +
                        " | Desc: " + to_string(descartesRestantes) +
                        " | Mazo: " + to_string(cartasEnMazo) +
-                       " | Puntaje: " + to_string(puntajeActual));
+                       " | \n \nPuntaje: " + to_string(puntajeActual));
         ventana.draw(texto);
         ventana.draw(info);
 
+
+        // Mostrar titulo "Comodines:"
+        sf::Text tituloComodines;
+        tituloComodines.setFont(fuente);
+        tituloComodines.setCharacterSize(20);
+        tituloComodines.setFillColor(sf::Color::White);
+        tituloComodines.setString("Comodines:");
+        tituloComodines.setPosition(20.f, 180.f);
+        ventana.draw(tituloComodines);
+
+        // Mostrar los comodines activos en vertical debajo del texto
+        vector<sf::Texture> texturasComodines(comodinesActivos.size());
+        for (size_t i = 0; i < comodinesActivos.size(); ++i)
+        {
+            if (texturasComodines[i].loadFromFile("comodines/" + to_string(comodinesActivos[i].getId()) + ".png"))
+            {
+                sf::Sprite sprite(texturasComodines[i]);
+                sprite.setScale(0.9f, 0.9f); // tama¤o reducido
+                sprite.setPosition(20.f, 210.f + i * 100.f); // en columna vertical
+                ventana.draw(sprite);
+            }
+        }
+
         mostrarSeleccion(ventana, sprites, seleccionadas, cantidad);
 
-        // Evaluar jugada seleccionada
         Carta seleccionadasArray[4];
         int cantidadSeleccionadas = 0;
-        for (int i = 0; i < 5 && cantidadSeleccionadas < 4; i++) {
-            if (seleccionadas[i]) {
+        for (int i = 0; i < 5 && cantidadSeleccionadas < 4; i++)
+        {
+            if (seleccionadas[i])
+            {
                 seleccionadasArray[cantidadSeleccionadas++] = cartas[i];
             }
         }
 
         string jugadaActual;
         bool esPrimeraMano = (jugadasRestantes == 3);
-        evaluarJugada(seleccionadasArray, cantidadSeleccionadas, esPrimeraMano, jugadaActual);
+        evaluarJugada(seleccionadasArray, cantidadSeleccionadas, esPrimeraMano, jugadaActual, comodinesActivos, rondasGanadas);
 
         if (!jugadaActual.empty())
         {
@@ -182,6 +250,8 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
             ventana.draw(punta);
             ventana.draw(textoGlobo);
         }
+
         ventana.display();
     }
 }
+

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <vector>
+
 
 class Carta {
 private:
@@ -12,12 +12,9 @@ private:
 public:
     Carta();
     Carta(int num, std::string p, int id, int pts);
-
     int getNumero() const;
     std::string getPalo() const;
     int getIdCarta() const;
     int getValor() const;
-
-    void mostrar() const;
 };
 

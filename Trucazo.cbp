@@ -6,7 +6,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="Trucazo_SFML_Base.exe" prefix_auto="0" extension_auto="0" />
+				<Option output="Trucazo.exe" prefix_auto="0" extension_auto="0" />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -31,25 +31,31 @@
 		<Linker>
 			<Add directory="." />
 		</Linker>
+		<Unit filename="ArchivoJugador.cpp" />
+		<Unit filename="ArchivoJugador.h" />
 		<Unit filename="Carta.cpp" />
 		<Unit filename="Carta.h" />
+		<Unit filename="Comodin.cpp" />
+		<Unit filename="Comodin.h" />
+		<Unit filename="EntreRondas.cpp" />
+		<Unit filename="EntreRondas.h" />
+		<Unit filename="Imagenes.cpp" />
 		<Unit filename="Imagenes.h" />
 		<Unit filename="Jugadas.cpp" />
 		<Unit filename="Jugadas.h" />
 		<Unit filename="Jugador.cpp" />
 		<Unit filename="Jugador.h" />
+		<Unit filename="Manager.cpp" />
+		<Unit filename="Manager.h" />
 		<Unit filename="Mazo.cpp" />
 		<Unit filename="Mazo.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
 		<Unit filename="Partida.cpp" />
 		<Unit filename="Partida.h" />
 		<Unit filename="Sonidos.cpp" />
 		<Unit filename="Sonidos.h" />
-		<Unit filename="imagenes.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="manager.cpp" />
-		<Unit filename="manager.h" />
-		<Unit filename="menu.cpp" />
-		<Unit filename="menu.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

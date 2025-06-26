@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Carta.h"
-using namespace std;
+#include "Jugador.h"
+#include "Comodin.h"
 
-// No hay helpers expuestos aquí, los auxiliares se dejan en el cpp
 
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
                               const Carta* cartas, int cantidad,
@@ -12,4 +12,12 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
                               int jugadas, int descartes, int cartasEnMazo,
                               int& jugadasRestantes, int& descartesRestantes,
                               int& accion,
-                              const string& jugadaActualTexto);
+                              const Jugador& jugador,
+                              const std::string& jugadaActualTexto,
+                              const std::vector<Comodin>& comodinesActivos,
+                              int rondasGanadas);
+
+
+void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* seleccionadas, int cantidad);
+
+void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* texturas, sf::Sprite* sprites);
