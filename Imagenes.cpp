@@ -8,14 +8,6 @@
 #include <string>
 using namespace std;
 
-/*
-    Funcion que se encarga de cargar la textura de cada carta y asignarla a su sprite.
-    Para que: poder mostrar cada carta con su imagen correspondiente.
-    Como lo hace:
-      - Usa el ID de la carta para construir el nombre del archivo.
-      - Carga la textura desde la carpeta de imagenes.
-      - Configura el sprite con su textura, escala y posicion en pantalla.
-*/
 void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* texturas, sf::Sprite* sprites)
 {
     for (int i = 0; i < cantidad; i++)
@@ -28,13 +20,6 @@ void cargarTexturasCartas(const Carta* cartas, int cantidad, sf::Texture* textur
     }
 }
 
-/*
-    Dibuja las cartas en pantalla y les agrega un marco rojo si est n seleccionadas.
-    Para que: darle al jugador una se¤al visual clara de qu‚ cartas eligi¢.
-    Como lo hace:
-      - Baja levemente la carta seleccionada.
-      - Dibuja un rect ngulo rojo encima para remarcarla.
-*/
 void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* seleccionadas, int cantidad)
 {
     for (int i = 0; i < cantidad; i++)
@@ -54,19 +39,6 @@ void mostrarSeleccion(sf::RenderWindow& ventana, sf::Sprite* sprites, bool* sele
     }
 }
 
-/*
-    Esta es la funcion principal de seleccion de cartas durante la partida.
-    Para que:
-      - El jugador pueda elegir qu‚ cartas quiere jugar o descartar.
-      - Ver en tiempo real cu ntas jugadas y descartes le quedan.
-    Por que:
-      - Necesitamos una interfaz interactiva para elegir cartas sin escribir comandos.
-    Como lo hace:
-      - Dibuja las cartas y toda la informacion.
-      - Captura las teclas 1 a 5 para marcar cartas.
-      - ENTER juega, BACKSPACE descarta.
-      - Muestra texto y un globo con el tipo de jugada detectada.
-*/
 void seleccionarCartasJugador(sf::RenderWindow& ventana,
                               const Carta* cartas, int cantidad,
                               int ronda, int objetivo, int puntajeActual,
@@ -96,7 +68,7 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
     }
     sf::Sprite spriteMazo(texturaMazo);
     spriteMazo.setScale(0.125f, 0.125f);
-    spriteMazo.setPosition(780, 425); // ahora aparece a la derecha
+    spriteMazo.setPosition(780, 425);
 
     sf::Text texto, info;
     texto.setFont(fuente);
@@ -180,8 +152,6 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         ventana.draw(texto);
         ventana.draw(info);
 
-
-        // Mostrar titulo "Comodines:"
         sf::Text tituloComodines;
         tituloComodines.setFont(fuente);
         tituloComodines.setCharacterSize(20);
@@ -190,15 +160,14 @@ void seleccionarCartasJugador(sf::RenderWindow& ventana,
         tituloComodines.setPosition(20.f, 180.f);
         ventana.draw(tituloComodines);
 
-        // Mostrar los comodines activos en vertical debajo del texto
         vector<sf::Texture> texturasComodines(comodinesActivos.size());
         for (size_t i = 0; i < comodinesActivos.size(); ++i)
         {
             if (texturasComodines[i].loadFromFile("comodines/" + to_string(comodinesActivos[i].getId()) + ".png"))
             {
                 sf::Sprite sprite(texturasComodines[i]);
-                sprite.setScale(0.9f, 0.9f); // tama¤o reducido
-                sprite.setPosition(20.f, 210.f + i * 100.f); // en columna vertical
+                sprite.setScale(0.9f, 0.9f);
+                sprite.setPosition(20.f, 210.f + i * 100.f);
                 ventana.draw(sprite);
             }
         }

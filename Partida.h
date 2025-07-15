@@ -20,9 +20,8 @@ private:
     std::vector<Carta> mano;
     std::vector<Carta> cartasExtra;
     Mazo mazo;
-//comodines
     std::vector<Comodin> comodinesSeleccionados;
-    int rondasGanadas; // cuenta cuantas rondas ganaste para saber si toca comodin
+    int rondasGanadas;
     std::vector<Comodin> comodinesActivos;
     void inicializarRonda();
     bool procesarTurno(sf::RenderWindow& ventana, bool& victoria);

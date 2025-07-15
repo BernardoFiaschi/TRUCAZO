@@ -17,7 +17,6 @@ private:
 public:
     Jugador();
     Jugador(int id,std::string nombre,int puntaje,int partidas);
-    void mostrarMano() const;
     void sumarPuntos(int puntos);
     void actualizarPuntajeMaximo(int puntajePartida);
     int getId()const;

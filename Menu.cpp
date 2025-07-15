@@ -8,12 +8,7 @@
 #include <cstring>
 using namespace std;
 
-/*
-   Dibuja el menu en pantalla
-   Para que: el jugador vea el titulo y las opciones disponibles
-   Como: limpia la ventana, dibuja el fondo, titulo y las opciones.
-          Resalta la opcion seleccionada en color amarillo.
-*/
+
 void Menu::dibujarMenu()
 {
     ventana.clear();
@@ -22,7 +17,7 @@ void Menu::dibujarMenu()
     for (int x = 0; x < 5; x++)
     {
         if (x == opcionSeleccionada)
-            opciones[x].setFillColor(sf::Color::Yellow);  // Resalta la seleccion
+            opciones[x].setFillColor(sf::Color::Yellow);
         else
             opciones[x].setFillColor(sf::Color::White);
         ventana.draw(opciones[x]);
@@ -30,12 +25,6 @@ void Menu::dibujarMenu()
     ventana.display();
 }
 
-/*
-    Captura eventos del teclado y ejecuta la opcion correspondiente
-   Para que: el jugador pueda moverse con flechas y elegir con ENTER
-   Como: al presionar arriba o abajo cambia la seleccion.
-          ENTER ejecuta la funcion segun la opcion actual.
-*/
 void Menu::gestionarEventos(Manager& cargar)
 {
     sf::Event evento;
@@ -56,25 +45,25 @@ void Menu::gestionarEventos(Manager& cargar)
             {
                 cout << "Opcion seleccionada: " << opcionSeleccionada + 1 << endl;
 
-                if (opcionSeleccionada == 0)  // INICIAR PARTIDA
+                if (opcionSeleccionada == 0)
                 {
                     cargar.iniciarPartida(ventana);
-                    cargar.actualizarJugador();  // Actualiza los datos del jugador
+                    cargar.actualizarJugador();
                 }
-                else if (opcionSeleccionada == 1)  // LISTAR JUGADORES
+                else if (opcionSeleccionada == 1)
                 {
                     cargar.listarJugadores(ventana);
                 }
-                else if (opcionSeleccionada == 2)  // MAZO DE CARTAS
+                else if (opcionSeleccionada == 2)
                 {
                     cargar.mostrarMazo(ventana);
                     cargar.mostrarMazoComodines(ventana);
                 }
-                else if (opcionSeleccionada == 3)  // CREDITOS
+                else if (opcionSeleccionada == 3)
                 {
                     cargar.mostrarCreditos(ventana);
                 }
-                else if (opcionSeleccionada == 4)  // SALIR
+                else if (opcionSeleccionada == 4)
                 {
                     ventana.close();
                 }
@@ -83,10 +72,6 @@ void Menu::gestionarEventos(Manager& cargar)
     }
 }
 
-/* Constructor del Menu
-   Para que: cargar todos los recursos visuales del menu principal
-   Como: carga fuente, fondo, crea el texto del titulo y las 5 opciones
-*/
 Menu::Menu(sf::RenderWindow& v) : ventana(v), opcionSeleccionada(0)
 {
     if (!fuente.loadFromFile("fuentes/Poppins-Regular.ttf"))
@@ -108,7 +93,6 @@ Menu::Menu(sf::RenderWindow& v) : ventana(v), opcionSeleccionada(0)
     titulo.setFillColor(sf::Color::Cyan);
     titulo.setPosition(60, 50);
 
-    // Lista de textos de las opciones del menu
     string textos[] = {
         "INICIAR PARTIDA",
         "LISTAR JUGADORES",
@@ -123,15 +107,11 @@ Menu::Menu(sf::RenderWindow& v) : ventana(v), opcionSeleccionada(0)
         texto.setFont(fuente);
         texto.setString(textos[x]);
         texto.setCharacterSize(30);
-        texto.setPosition(85, 150 + x * 50);  // Distribucion vertical
+        texto.setPosition(85, 150 + x * 50);
         opciones.push_back(texto);
     }
 }
 
-/* Ejecuta el bucle principal del menu
-   Para que: mantener el menu activo hasta que se cierre la ventana
-   Como: inicia la musica de fondo, y repite continuamente gestionando eventos y dibujando
-*/
 void Menu::ejecutar()
 {
     Manager cargar;
@@ -139,6 +119,6 @@ void Menu::ejecutar()
     while (ventana.isOpen())
     {
         gestionarEventos(cargar);
-        dibujarMenu();             // Refresca pantalla con nueva seleccion
+        dibujarMenu();
     }
 }

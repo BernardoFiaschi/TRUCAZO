@@ -2,7 +2,8 @@
 #include <string>
 
 
-class Carta {
+class Carta
+{
 private:
     int numero;
     std::string palo;

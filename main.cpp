@@ -8,6 +8,7 @@
 #include <iostream>
 using namespace std;
 
+
 int main()
 {
     srand(time(nullptr));
@@ -28,3 +29,4 @@ int main()
 
     return 0;
 }
+

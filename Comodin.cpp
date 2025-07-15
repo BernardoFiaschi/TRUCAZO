@@ -3,7 +3,7 @@ using namespace std;
 
 Comodin::Comodin() : _id(0), _nombre(""), _descripcion("") {}
 
-Comodin::Comodin(int id, std::string nombre, std::string descripcion) {
+Comodin::Comodin(int id, string nombre, string descripcion) {
     setId(id);
     setNombre(nombre);
     setDescripcion(descripcion);

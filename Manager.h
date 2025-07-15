@@ -10,7 +10,6 @@ class Manager
     Mazo mazo;
     void dibujarMazoCartas(sf::RenderWindow& ventana);
     void esperarTecla(sf::RenderWindow& ventana);
-    //comodines
     void dibujarComodines(sf::RenderWindow& ventana);
 
 public:
@@ -24,6 +23,5 @@ public:
     void listarJugadores(sf::RenderWindow& ventana);
     void actualizarJugador();
     Jugador& getJugador();
-    //comodines
     void mostrarMazoComodines(sf::RenderWindow& ventana);
 };

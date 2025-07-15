@@ -14,7 +14,6 @@ private:
     int cantidadCartasDisponibles;
     std::vector<Carta> inicializarMazoOriginal();
     void mezclarMazo(std::vector<Carta>& iniciales);
-    //comodines
     std::stack<Comodin> pilaComodines;
     std::vector<Comodin> mazoDeComodines;
     std::vector<Comodin> comodinesJugador;
@@ -33,7 +32,6 @@ public:
     static std::vector<Carta> CartasMazo();
     void generarCartasOpcionales(int cantidad,std::vector<Carta>& destino);
     void agregarCartaExtra(const Carta& c);
-    //comodines
     static std::vector<Comodin> ComodinMazo();
     const std::vector<Comodin>& getMazoComodines() const;
 };

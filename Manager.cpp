@@ -10,18 +10,8 @@
 #include <sstream>
 using namespace std;
 
-/*
-   Constructor del manager
-   Para que: inicializar el jugador actual como vacio por defecto.
-   Como: se crea un jugador con ID 1, nombre vacio y 0 en partidas y puntos.
-*/
 Manager::Manager() : jugador(1, "", 0, 0) {}
 
-/*
-   Dibuja todas las cartas del mazo original en pantalla
-   Para que: el jugador pueda ver el mazo completo
-   Como: recorre el vector de cartas originales y las dibuja una por una
-*/
 void Manager::dibujarMazoCartas(sf::RenderWindow& ventana) {
     ventana.clear();
 
@@ -74,8 +64,7 @@ void Manager::dibujarComodines(sf::RenderWindow& ventana)
     sf::Sprite spriteFondo(fondoPantalla);
     ventana.draw(spriteFondo);
 
-    // Dimensiones
-    float escala = 1.5f; // reducida para que entren m s
+    float escala = 1.5f;
     float anchoCarta = 90 * escala;
     float altoCarta = 140 * escala;
     float espacioX = 20;
@@ -122,10 +111,6 @@ void Manager::mostrarMazoComodines(sf::RenderWindow& ventana)
     esperarTecla(ventana);
 }
 
-/*
-   Espera a que el jugador presione cualquier tecla
-   Para que: pausar la pantalla hasta que el jugador quiera seguir
-*/
 void Manager::esperarTecla(sf::RenderWindow& ventana) {
     bool esperando = true;
     while (esperando && ventana.isOpen()) {
@@ -137,30 +122,16 @@ void Manager::esperarTecla(sf::RenderWindow& ventana) {
     }
 }
 
-/*
-   Muestra el menu principal
-   Para que: iniciar la interfaz principal del juego
-   Como: se crea el objeto Menu y se ejecuta su metodo
-*/
 void Manager::mostrarMenu(sf::RenderWindow& ventana) {
     Menu menu(ventana);
     menu.ejecutar();
 }
 
-/*
-   Muestra visualmente el mazo completo y espera una tecla
-   Para que: mostrar al jugador las 40 cartas que hay
-*/
 void Manager::mostrarMazo(sf::RenderWindow& ventana) {
     dibujarMazoCartas(ventana);
     esperarTecla(ventana);
 }
 
-/*
-   Pide el nombre del jugador por pantalla (ingreso tipo consola)
-   Para que: registrar o recuperar al jugador que va a jugar
-   Como: usa una ventana con texto en vivo y espera ENTER
-*/
 string Manager::pedirNombre(sf::RenderWindow& ventana) {
     sf::Font fuente;
     fuente.loadFromFile("fuentes/Poppins-Regular.ttf");
@@ -211,11 +182,6 @@ string Manager::pedirNombre(sf::RenderWindow& ventana) {
     return "";
 }
 
-/*
-   Inicia una nueva partida para el jugador
-   Para que: cargar un jugador existente o crear uno nuevo
-   Como: se pide el nombre, se busca en archivo y luego se inicia la partida
-*/
 void Manager::iniciarPartida(sf::RenderWindow& ventana) {
     ArchivoJugador archivo;
     string nombre = pedirNombre(ventana);
@@ -239,15 +205,10 @@ void Manager::iniciarPartida(sf::RenderWindow& ventana) {
     if (pos >= 0) archivo.guardarJugador(jugador, pos);
 }
 
-/*
-   Muestra una pantalla de fin de ronda (ganada o perdida)
-   Para que: dar feedback visual y sonoro al jugador
-   Como: muestra fondo, texto, puntaje, y espera ENTER
-*/
 void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& partida)
 {
 
-    if (victoria && partida.getRondaActual() == 14)  // rondaActual arranca en 0
+    if (victoria && partida.getRondaActual() == 14)
     {
         sf::Texture fondoTexture;
         if (!fondoTexture.loadFromFile("fondos/CREDITOS.png")) {
@@ -340,7 +301,6 @@ void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& 
     ventana.draw(instruccion);
     ventana.display();
 
-    // Esperar ENTER
     bool esperando = true;
     while (esperando && ventana.isOpen())
     {
@@ -353,7 +313,6 @@ void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& 
         }
     }
 
-    // Restaurar musica
     if (ventana.isOpen()) {
         Sonidos::get().detenerVictoria();
         Sonidos::get().detenerDerrota();
@@ -361,11 +320,6 @@ void Manager::finalizarRonda(sf::RenderWindow& ventana, bool victoria, Partida& 
     }
 }
 
-/*
-   Muestra una pantalla con los creditos del juego
-   Para que: reconocer a los desarrolladores
-   Como: se dibuja una imagen de fondo y texto en pantalla
-*/
 void Manager::mostrarCreditos(sf::RenderWindow& ventana) {
     sf::Texture fondoTexture;
     if (!fondoTexture.loadFromFile("fondos/CREDITOS.png")) return;
@@ -398,20 +352,10 @@ void Manager::mostrarCreditos(sf::RenderWindow& ventana) {
     esperarTecla(ventana);
 }
 
-/*
-   Devuelve una referencia al jugador actual
-   Para que: otras clases puedan acceder a sus datos sin duplicarlos
-*/
-
 Jugador& Manager::getJugador() {
     return jugador;
 }
 
-/*
-   Muestra la lista de jugadores registrados y sus datos
-   Para que: visualizar todos los jugadores guardados en archivo
-   Como: se lee el archivo binario y se dibuja cada jugador en pantalla
-*/
 void Manager::listarJugadores(sf::RenderWindow& ventana) {
     ArchivoJugador archivo;
     int cantidad = archivo.getCantidadJugadores();
@@ -457,10 +401,6 @@ void Manager::listarJugadores(sf::RenderWindow& ventana) {
     esperarTecla(ventana);
 }
 
-/*
-   Guarda los datos actualizados del jugador en archivo
-   Para que: se conserven los cambios de partidas y puntajes
-*/
 void Manager::actualizarJugador() {
     ArchivoJugador archivo;
     int pos = archivo.buscarJugadorPorId(jugador.getId());
